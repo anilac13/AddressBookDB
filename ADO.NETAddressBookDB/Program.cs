@@ -13,12 +13,11 @@ namespace ADO.NETAddressBookDB
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("\nChoose option to perform \n1.Insert records to Address book \n2.Edit contact \n3.Delete contact \n4.Retrieve records belongs to City or State \n5.Count of records by City or State \n6.Exit");
+                Console.WriteLine("\nChoose option to perform \n1.Insert records to Address book \n2.Edit contact \n3.Delete contact \n4.Retrieve records belongs to City or State \n5.Count of records by City or State \n6.Retieve records alphabetically \n7.Exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
                     case 1:
-                        connection.Open();
                         Console.WriteLine("Enter first name");
                         string first = Console.ReadLine();
                         Console.WriteLine("Enter last name");
@@ -36,6 +35,7 @@ namespace ADO.NETAddressBookDB
                         Console.WriteLine("Enter email");
                         string email = Console.ReadLine();
 
+                        connection.Open();
                         string query = $"insert into AddressBook values('{first}','{last}','{address}','{city}','{state}','{zip}','{phone}','{email}')";
                         SqlCommand insertCommand = new SqlCommand(query, connection);
                         insertCommand.ExecuteNonQuery();
@@ -74,6 +74,13 @@ namespace ADO.NETAddressBookDB
                         connection.Close();
                         break;
                     case 6:
+                        connection.Open();
+                        string orderQuery = "select * from AddressBook order by FirstName";
+                        SqlCommand orderCommand = new SqlCommand(orderQuery, connection);
+                        orderCommand.ExecuteNonQuery();
+                        connection.Close();
+                        break;
+                    case 7:
                         flag = false;
                         break;
                 }
