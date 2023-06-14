@@ -13,7 +13,7 @@ namespace ADO.NETAddressBookDB
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("\nChoose option to perform \n1.Insert records to Address book \n2.Edit contact \n3.Delete contact \n4.Exit");
+                Console.WriteLine("\nChoose option to perform \n1.Insert records to Address book \n2.Edit contact \n3.Delete contact \n4.Retrieve records belongs to City or State \n5.Exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -56,6 +56,13 @@ namespace ADO.NETAddressBookDB
                         connection.Close();
                         break;
                     case 4:
+                        connection.Open();
+                        string recordsQuery = "select * from AddressBook where City='Bengaluru' or State='Karnataka'";
+                        SqlCommand retrieveCommand = new SqlCommand(recordsQuery, connection);
+                        retrieveCommand.ExecuteNonQuery();
+                        connection.Close();
+                        break;
+                    case 5:
                         flag = false;
                         break;
                 }
