@@ -13,7 +13,7 @@ namespace ADO.NETAddressBookDB
             bool flag = true;
             while (flag)
             {
-                Console.WriteLine("\nChoose option to perform \n1.Insert records to Address book \n2.Exit");
+                Console.WriteLine("\nChoose option to perform \n1.Insert records to Address book \n2.Edit contact \n3.Exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -42,6 +42,13 @@ namespace ADO.NETAddressBookDB
                         connection.Close();
                         break;
                     case 2:
+                        connection.Open();
+                        string query1 = "update AddressBook set Address='Agumbe', City='Shivamogga' where FirstName='Jeevan'";
+                        SqlCommand updateCommand = new SqlCommand(query1, connection);
+                        updateCommand.ExecuteNonQuery();
+                        connection.Close();
+                        break;
+                    case 3:
                         flag = false;
                         break;
                 }
